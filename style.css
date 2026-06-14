@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    background-color: #050510;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    touch-action: none; /* মোবাইলে ডিফল্ট সোয়াইপ বন্ধ করার জন্য */
+}
+
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    display: block;
+    background: radial-gradient(circle at center, #11152b 0%, #050510 100%);
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none; /* UI এর ওপর দিয়েও যেন টাচ ক্যানভাসে যায় */
+    z-index: 10;
+}
+
+#score-board {
+    color: #00ffff;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+}
+
+#instruction {
+    color: #ff00ff;
+    font-size: 18px;
+    opacity: 0.7;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
