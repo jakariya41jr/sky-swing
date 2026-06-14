@@ -7,51 +7,171 @@
 }
 
 body {
-    background-color: #050510;
+    background-color: #03030c;
     overflow: hidden;
-    font-family: 'Arial', sans-serif;
-    touch-action: none; /* মোবাইলে ডিফল্ট সোয়াইপ বন্ধ করার জন্য */
+    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+    touch-action: none;
 }
 
 #game-container {
     position: relative;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 canvas {
     display: block;
-    background: radial-gradient(circle at center, #11152b 0%, #050510 100%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #0c0f26 0%, #03030c 100%);
 }
 
-#ui-layer {
+/* UI স্ক্রিনগুলোর কমন স্টাইল (Glassmorphism) */
+.screen {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px;
+    height: 100%;
+    background: rgba(5, 5, 15, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    transition: opacity 0.3s ease;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* টাইপোগ্রাফি ও নিয়ন ইফেক্ট */
+.game-title {
+    color: #fff;
+    font-size: 4rem;
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+    margin-bottom: 5px;
+}
+
+.game-subtitle {
+    color: #ff00ff;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px #ff00ff;
+    margin-bottom: 40px;
+}
+
+.screen-title {
+    color: #fff;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.screen-title.dead {
+    color: #ff3333;
+    text-shadow: 0 0 20px #ff3333;
+}
+
+/* বাটন ডিজাইন */
+.action-btn {
+    background: transparent;
+    color: #00ffff;
+    border: 2px solid #00ffff;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover, .action-btn:active {
+    background: #00ffff;
+    color: #03030c;
+    box-shadow: 0 0 25px #00ffff;
+    transform: scale(1.05);
+}
+
+.action-btn.restart {
+    color: #ff00ff;
+    border-color: #ff00ff;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+}
+
+.action-btn.restart:hover, .action-btn.restart:active {
+    background: #ff00ff;
+    color: #03030c;
+    box-shadow: 0 0 25px #ff00ff;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* HUD লেআউট */
+#hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px;
     display: flex;
     justify-content: space-between;
-    pointer-events: none; /* UI এর ওপর দিয়েও যেন টাচ ক্যানভাসে যায় */
+    align-items: center;
     z-index: 10;
+    pointer-events: none;
 }
 
-#score-board {
-    color: #00ffff;
-    font-size: 28px;
+.stats {
+    color: #fff;
+    font-size: 1.3rem;
     font-weight: bold;
-    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    display: flex;
+    gap: 30px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-#instruction {
-    color: #ff00ff;
-    font-size: 18px;
-    opacity: 0.7;
-    text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
-    animation: blink 2s infinite;
+.stats div:first-child { color: #00ffff; text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
+.stats div:last-child { color: #ffff00; text-shadow: 0 0 10px rgba(2ffff, 0, 0.5); }
+
+.ui-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    pointer-events: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
 }
 
-@keyframes blink {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
+.ui-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.final-stats {
+    color: #fff;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 2;
 }
