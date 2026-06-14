@@ -3,17 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sky Swing - Advanced Endless Runner</title>
+    <title>Sky Swing: Neon Evolution</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="game-container">
-        <div id="ui-layer">
-            <div id="score-board">Score: <span id="score">0</span></div>
-            <div id="instruction">Tap and Hold to Swing</div>
+        <div id="hud" class="hidden">
+            <div class="stats">
+                <div>Score: <span id="score">0</span></div>
+                <div>Crystals: <span id="coins">0</span></div>
+            </div>
+            <button id="pause-btn" class="ui-button">⏸</button>
         </div>
+
+        <div id="menu-screen" class="screen">
+            <h1 class="game-title">SKY SWING</h1>
+            <p class="game-subtitle">Neon Evolution</p>
+            <button id="start-btn" class="action-btn">START GAME</button>
+        </div>
+
+        <div id="pause-screen" class="screen hidden">
+            <h2 class="screen-title">GAME PAUSED</h2>
+            <div class="button-group">
+                <button id="resume-btn" class="action-btn">RESUME</button>
+                <button id="restart-from-pause-btn" class="action-btn restart">RESTART</button>
+            </div>
+        </div>
+
+        <div id="gameover-screen" class="screen hidden">
+            <h2 class="screen-title dead">GAME OVER</h2>
+            <div class="final-stats">
+                <p>Final Score: <span id="final-score">0</span></p>
+                <p>Crystals Collected: <span id="final-coins">0</span></p>
+            </div>
+            <button id="retry-btn" class="action-btn">TRY AGAIN</button>
+        </div>
+
         <canvas id="gameCanvas"></canvas>
     </div>
+
     <script src="game.js"></script>
 </body>
 </html>
